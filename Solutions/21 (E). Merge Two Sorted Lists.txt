@@ -1,0 +1,29 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        if l1 is None and l2 is None:
+            return None
+        l1_array = []
+        l2_array = []
+        while l1:
+            l1_array.append(l1.val)
+            l1 = l1.next
+        while l2:
+            l2_array.append(l2.val)
+            l2 = l2.next
+        
+        array = sorted(l1_array + l2_array)
+        
+        array_ln = [ListNode(array[0])]
+        
+        for i in range(1,len(array)):
+            array_ln.append(ListNode(array[i]))
+            array_ln[-2].next = array_ln[-1]
+        array_ln[-1].next = None
+        return array_ln[0]
+            
