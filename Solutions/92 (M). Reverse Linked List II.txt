@@ -20,3 +20,34 @@ class Solution:
 #             current = current.next
 #         return head
 
+
+class Solution(object):
+    def reverseBetween(self, head, m, n):
+        """
+        :type head: ListNode
+        :type m: int
+        :type n: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(0)
+        dummy.next = head
+        start = dummy
+        for i in range(m-1):
+            start = start.next
+            
+        # Set ending point
+        end = cur = start.next
+        
+        prev = None
+        for i in range(n-m+1):
+            n = cur.next
+            cur.next = prev
+            prev = cur
+            cur = n
+        
+        end.next = cur
+        start.next = prev
+        print(head,dummy.next)
+
+        # print(head)
+        return dummy.next
