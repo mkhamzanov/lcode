@@ -1,0 +1,26 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        if len(nums)==0:
+            return 0
+        if len(nums)==1:
+            return nums[0]
+        
+        product = nums[0]
+        max_product_left = nums[0]
+        for num in nums[1:]:
+            if product==0:
+                product = num
+            else:
+                product *= num
+            max_product_left = max(max_product_left, product)
+
+        product = nums[-1]
+        max_product_right = nums[-1]
+        for num in list(reversed(nums))[1:]:
+            if product==0:
+                product = num
+            else:
+                product *= num
+            max_product_right = max(max_product_right, product)
+            
+        return max(max_product_left,max_product_right)

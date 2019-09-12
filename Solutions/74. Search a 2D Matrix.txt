@@ -1,0 +1,39 @@
+74. Search a 2D Matrix
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        def BinarySearch(array, target):
+            if len(array)==0:
+                return False
+            if array[-1]<target or target<array[0]:
+                return False
+            left = 0
+            right = len(array)-1
+            while left <= right:
+                m = (right+left)//2
+                if array[m]==target:
+                    return True
+                elif array[m]>target :
+                    right = m - 1
+                else:
+                    left = m + 1
+            return False
+        
+        if len(matrix)==0:
+            return False
+        elif len(matrix)==1:
+            return BinarySearch(matrix[0], target)
+        elif len(matrix)==1 and len(matrix[0])==0:
+            return False
+        left,right = 0, len(matrix) - 1
+        while left <= right:
+            middle = (right + left) //2
+            array = matrix[middle]
+            if target>=array[0] and target<=array[-1]:
+                if BinarySearch(array, target):
+                    return True
+                return False
+            elif target < array[0]:
+                right = middle-1
+            else:
+                left = middle + 1
+        return False

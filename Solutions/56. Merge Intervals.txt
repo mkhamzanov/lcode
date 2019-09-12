@@ -1,0 +1,24 @@
+56. Merge Intervals
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals)<=1:
+            return intervals
+        
+        def is_merge(l1,l2):
+            if l1[1]>=l2[0]:
+                return True
+            return False
+        def merge(l1,l2):
+            if l1[1]>=l2[0]:
+                return [l1[0],max(l1[1],l2[1])]
+            return [l1,l2]
+        
+        intervals = sorted(intervals, key = lambda x: x[0])
+        res = []
+        res += [intervals[0]]
+        for arr in intervals[1:]:
+            if is_merge(res[-1],arr):
+                res[-1]=merge(res[-1],arr)
+                continue
+            res.append(arr)
+        return res
